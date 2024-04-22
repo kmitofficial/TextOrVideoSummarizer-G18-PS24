@@ -4,4 +4,3 @@ Repo for Text/Video summarizer
 About Project:
 https://youtu.be/ZqhJY_ERMng
 
-**hello world**
