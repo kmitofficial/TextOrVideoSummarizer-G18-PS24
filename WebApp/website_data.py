@@ -10,12 +10,15 @@ def scrape(url):
     r = requests.get(url=URL, headers=headers) 
     if r.status_code ==200:
         # print(r.content)
-
+        
         soup = BeautifulSoup(r.content, 'html.parser') # If this line causes an error, run 'pip install html5lib' or install html5lib 
         # print(soup.prettify()) 
         # b = soup.find_all('p','ul li')
         # for yy in b:
         #     print(yy.get_text())
+        if "404" in soup.title.string:
+            print('The page indicates a 404 error')
+            return None
         flag = 0;
         enter = """
     """
