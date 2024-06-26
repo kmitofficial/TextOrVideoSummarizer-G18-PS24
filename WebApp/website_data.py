@@ -10,35 +10,43 @@ def scrape(url):
     r = requests.get(url=URL, headers=headers) 
     if r.status_code ==200:
         # print(r.content)
-        
-        soup = BeautifulSoup(r.content, 'html.parser') # If this line causes an error, run 'pip install html5lib' or install html5lib 
-        # print(soup.prettify()) 
-        # b = soup.find_all('p','ul li')
-        # for yy in b:
-        #     print(yy.get_text())
+
+        soup = BeautifulSoup(r.content, 'html.parser') 
         if "404" in soup.title.string:
             print('The page indicates a 404 error')
             return None
-        flag = 0;
-        enter = """
-    """
-        str = ""
-        body = soup.body.find_all()
-        for tag in body:
-            if tag.name=='p' or tag.name=='h1' or tag.name=='h2' or tag.name=='h3' :
-                str += tag.get_text() 
-                str += enter
-                if tag.name=='p':
-                    flag=1
-
-            elif (tag.name == 'ul' or tag.name=='ol') and flag==1:
-                liBody=tag.find_all('li')
-                for text in liBody:    
-                    str+=text.get_text()
-                    str += enter
-        # print(str)
-        # print(soup.body.get_text())
-        return str
-    else:
-        return ""
     
+    possible_selectors = [
+        {'tag': 'div', 'class': 'post-content'},
+        {'tag': 'div', 'class': 'article-content'},
+        {'tag': 'article', 'class': None},
+        {'tag': 'div', 'class': 'content'},
+        {'tag': 'div', 'id': 'content'},
+        {'tag': 'main', 'class': None},
+        {'tag': 'div', 'class': 'blog-post'},
+        {'tag': 'div', 'class': 'entry-content'},
+    ]
+
+    for selector in possible_selectors:
+            if selector['class']:
+                content_div = soup.find(selector['tag'], class_=selector['class'])
+            else:
+                content_div = soup.find(selector['tag'])
+
+            if content_div:
+                break
+
+    if content_div:
+        # Filter out unwanted tags
+        for unwanted in content_div(['aside', 'button', 'footer', 'nav', 'form']):
+            unwanted.decompose()
+        
+        # Extract text from the div
+        blog_content = content_div.get_text(strip=True,separator="\n")
+        return blog_content
+
+    print('Content not found using predefined selectors')
+    return None
+print()
+str = scrape("https://rapidfireart.com/2017/04/06/lesson-1-how-to-sketch/")
+print(str)
