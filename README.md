@@ -15,7 +15,7 @@ pip install -r requirements.
 **Step 3** : Create a new file named *.env* in the same directory.  
 **Step 4** : Add your *Gemini API key* in the *.env* as shown below.  
 ```
-"API_KEY" = your_api_key
+"API_KEY" = "your_api_key"
 ```
 A Gemini API key can be created [here](https://aistudio.google.com/app/apikey).  
 **Step 5** : Finally, run the application using the below command.  
