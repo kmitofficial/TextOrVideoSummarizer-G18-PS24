@@ -20,6 +20,7 @@ pip install -r requirements.txt
 A Gemini API key can be created [here](https://aistudio.google.com/app/apikey).  
 **Step 5** : Finally, run the application using the below command.  
 ```
+cd ./WebApp
 streamlit run app.py
 ```
 Now, you are ready to use our web application.  
