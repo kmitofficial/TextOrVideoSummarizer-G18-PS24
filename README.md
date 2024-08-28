@@ -10,7 +10,7 @@ git clone https://github.com/kmitofficial/TextOrVideoSummarizer-G18-PS24.git
 ```
 **Step 2** : Install all the required libraries in the _Webapp_ directory using the command below: 
 ```
-pip install -r requirements.
+pip install -r requirements.txt
 ```
 **Step 3** : Create a new file named *.env* in the same directory.  
 **Step 4** : Add your *Gemini API key* in the *.env* as shown below.  
